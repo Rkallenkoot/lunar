@@ -28,9 +28,40 @@ Lunar currently provides bug fixes and security updates for only the latest mino
 
 ### High Impact
 
+#### Search indexing refactor
+
+Search indexing has been completely re-written to be more extendable and performant. You will need to migrate
+any `Observer` classes that use the `indexer` event to the new indexer class implementation.
+
+The following methods have also been removed from the `Searchable` trait and should be migrated.
+
+- `addFilterableAttributes`
+- `addSearchableAttributes`
+- `addSortableAttributes`
+- `getObservableEvents`
+
+If you still wish to use these methods you will need to re-implement them yourself, however this is highly discouraged.
+
+See the [`Search Extending`](/core/extending/search) guide for more information about what indexer classes are and how
+to use them.
+
+#### Licensing Manager has been removed
+
+You will need ro re-run the addons discover command to update the manifest. No additional steps are required for addons.
+
+```shell
+$ php artisan lunar:addons:discover
+````
+
+## 0.5
+
+### High Impact
+
 #### `meta` field cast with `Illuminate\Database\Eloquent\Casts\AsArrayObject`
 
-All models with `meta` attribute are now cast with Laravel's [`AsArrayObject::class`](https://laravel.com/docs/10.x/eloquent-mutators#array-object-and-collection-casting). Change your code to get the value
+All models with `meta` attribute are now cast with
+Laravel's [`AsArrayObject::class`](https://laravel.com/docs/10.x/eloquent-mutators#array-object-and-collection-casting).
+Change your code to get the value
 with `$model->meta['key'] ?? 'default'` instead of `$model->meta->key`, and without the need of
 `is_object/is_array` type checking.
 
