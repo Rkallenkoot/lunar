@@ -66,6 +66,20 @@ class BuyXGetYTest extends TestCase
                 'maxRewardQty' => 5,
                 'expected' => 5,
             ],
+            [
+                'linesQuantity' => 3,
+                'minQty' => 2,
+                'rewardQty' => 1,
+                'maxRewardQty' => 2,
+                'expected' => 1,
+            ],
+            [
+                'linesQuantity' => 7,
+                'minQty' => 2,
+                'rewardQty' => 1,
+                'maxRewardQty' => 10,
+                'expected' => 3,
+            ],
         ];
 
         foreach ($checks as $check) {
